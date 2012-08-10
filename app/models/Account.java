@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.vz.mongodb.jackson.ObjectId;
@@ -21,6 +22,7 @@ public class Account {
 	public Account(String email, String name) {
 		this.email = email;
 		this.name = name;
+		participatedPosts= new ArrayList<String>();
 	}
 	
 	

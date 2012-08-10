@@ -115,20 +115,24 @@ public class PostServiceTest {
 	postService.addComment(account, "THIS IS A COMMENT", postToComment.id);
 	
 	Post ppostc=postService.findPostById(postToComment.id);
-	
+	account = accountService.retriveById(account.id);
 	assertNotNull(ppostc);
 	assertEquals(1, ppostc.comments.size());
 	assertEquals(account.email, ppostc.comments.get(0).commenter.email);
 	assertEquals("THIS IS A COMMENT", ppostc.comments.get(0).content);
+	assertEquals(1,account.participatedPosts.size());
 	
 	postService.addComment(account2, "THIS IS ANOTHER COMMENT", postToComment.id);
 	
 	ppostc=postService.findPostById(postToComment.id);
+	account2 = accountService.retriveById(account2.id);
 	
 	assertNotNull(ppostc);
 	assertEquals(2, ppostc.comments.size());
 	assertEquals(account2.email, ppostc.comments.get(1).commenter.email);
 	assertEquals("THIS IS ANOTHER COMMENT", ppostc.comments.get(1).content);
+	assertEquals(1,account2.participatedPosts.size());
+	
 	postService.deletePostByAuthor(account);
 	List<Post> ppost=postService.getPostByAuthor(account);
 	assertEquals(0, ppost.size());
